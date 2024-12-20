@@ -13,13 +13,6 @@
 
 注意：任何第三方apk安装办法均存在风险，该项目仅用于技术交流，请勿用于盈利。同时务必注意：当前所有升级地图的方法均存在各种BUG，社区并没有完美地图方案。
 
-### How to Build
-
-```sh
-$ docker build --no-cache -t car_apk_manager \
-    --build-arg DJANGO_ENV=product .
-```
-
 ## How to Use
 
 ### Step1：部署服务端
@@ -90,6 +83,13 @@ $ docker exec -it car_apk_manager \
   2. 手机启用热点并将DNS设置为`$ENTRY_IP`；笔记本无线建议关闭ipv6服务；
   3. 车机暂时关闭移动数据流量，连接手机热点，然后点击中控屏桌面的"智慧手册App"，此时会有弹窗提醒，核实确认是自己需要安装的APP，点击"升级"即可安装；
   4. 安装完成，手关闭热点，笔记本电脑DNS、ipv6改回原有设置；
+
+### How to Build
+
+```sh
+$ docker build --no-cache -t car_apk_manager \
+    --build-arg DJANGO_ENV=product .
+```
 
 ## FAQ
 
