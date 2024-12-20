@@ -85,7 +85,7 @@ $ docker exec -it car_apk_manager \
   3. 车机暂时关闭移动数据流量，连接手机热点，然后点击中控屏桌面的"智慧手册App"，此时会有弹窗提醒，核实确认是自己需要安装的APP，点击"升级"即可安装；
   4. 安装完成，手关闭热点，笔记本电脑DNS、ipv6改回原有设置；
 
-### How to Build
+## How to Build
 
 ```sh
 $ docker build --no-cache -t car_apk_manager \
