@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="623">
+  <link rel="icon" href="{% static 'assets/image/favicons/favicon-32x32.png' %}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{% static 'assets/image/favicons/favicon-16x16.png' %}" sizes="16x16" type="image/png">
+  <link rel="manifest" href="{% static 'assets/image/favicons/manifest.json' %}">
+  <link rel="icon" href="{% static 'assets/image/favicons/favicon.ico' %}">
+  <title>{% block title %}{% endblock %}</title>
+  {% block shortcut-icon %}{% endblock %}
+  {% block pre-extra-css %}{% endblock %}
+  {% block pre-extra-js %}{% endblock %}
+  {% include 'common/_base_css.html' %}
+  {% block extra-css %}
+  {% endblock %}
+</head>
+
+<body>
+  <div class="wrap">
+    {% include 'common/_modal.html' %}
+    {% block main %}{% endblock %}
+    {% include 'common/_footer.html' %}
+  </div>
+  {% block other %}{% endblock %}
+  {% include 'common/_base_js.html' %}
+  {% block extra-js %}{% endblock %}
+</body>
+</html>

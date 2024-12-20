@@ -1,0 +1,229 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}Car APK Manager{% endblock %}
+
+{% block main %}
+<div class="topmenu text-end me-2">
+  {% if user.is_authenticated and user.is_superuser %}
+  <a href="{% url 'admin:gwm_apk_changelist' %}" target="_blank">
+    <i class="bi bi-arrow-right-short"></i>
+    Admin Dashboard
+  </a>
+  {% else %}
+  <a href="{% url 'admin:login' %}">
+    <i class="bi bi-arrow-right-short"></i>
+    login
+  </a>
+  {% endif %}
+</div>
+<div class="top-header text-center mt-5" >
+  <img src="{% static 'assets/image/car_apk_manager_v2.png' %}" style="height: 54px;" alt="Car APK Manager">
+</div>
+<div class="dns-show text-center my-4 pt-3">
+  <h2 style="color: #999999;border: 1px solid #d8d8d8;display: inline-block;padding: 12px;border-radius: 4px;"><span>{{ current_dns }}</span></h2>
+</div>
+<div class="apk-list">
+  <div class="action-task-list mb-2 mx-2">
+    <form class="row g-3" id="APPForm" onsubmit="return false">
+      <div class="col-auto">
+        <label for="keyword" class="visually-hidden">apk name here</label>
+        <input type="text" class="form-control" id="keyword" placeholder="apk name here">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary mb-3" id="search">Search</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary mb-3" id="findApks">Find Local APP</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary mb-3" id="verifyDNS" onclick="window.open('https://dzsms.gwm.com.cn/apiv2/car_apk_update', '_blank');">Verify DNS</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-outline-secondary mb-3" id="addAPPModal" data-bs-toggle="modal" data-bs-target="#myModal">Add New APP</button>
+      </div>
+    </form>
+    <div class="" id="action-message"></div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col" class="d-none d-md-table-cell">#</th>
+          <th scope="col">name</th>
+          <th scope="col" class="d-none d-md-table-cell">Describe</th>
+          <th scope="col" class="d-none d-md-table-cell">status</th>
+          <th scope="col">comment</th>
+          <th scope="col">
+            <div style="display: inline-flex">
+              locked
+              <i class="bi-info-circle-fill text-success"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="Administrators can enable the setting, with only one in the locked state."></i>
+            </div>
+          </th>
+          <th scope="col" class="d-none d-md-table-cell">modify_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% include 'gwm/_table_h6_apk_list.html' %}
+      </tbody>
+    </table>
+  </div>
+  {% include 'common/_pagination.html' %}
+</div>
+
+{% endblock %}
+
+{% block extra-js %}
+<script type="text/javascript" src="{% static 'assets/js/jquery.serializejson.min.js' %}"></script>
+<script type="text/javascript">
+  // search apk
+  $("#search").on('click', function(event) {
+    event.preventDefault();
+    const keyword = $("#keyword").val();
+    if (keyword.trim()) {
+      enableSearchButton(false);
+      clearSearchMessage();
+      $.ajaxSetup({headers: {"X-CSRFToken": "{{ csrf_token }}"}});
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "{% url 'apps.gwm:search_apk' %}",
+        data: {
+          'keyword': keyword
+        },
+        beforeSend: function() {
+          enableSearchButton(false);
+        },
+        success: function(resp) {
+          displaySearchResults(resp.item_list);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          handleError(jqXHR, textStatus, errorThrown);
+        }
+      }).always(enableSearchButton);
+    } else {
+      location.reload();
+    }
+  });
+
+  // load apk modal
+  $(document).ready(function () {
+    $("#addAPPModal").on("click", function () {
+      $.ajax({
+        url: '{% url "apps.gwm:add_apk" %}',
+        type: "GET",
+        success: function (resp) {
+          console.log(resp);
+          $("#myModal .modal-title").html("New APP");
+          $("#myModal .modal-body").html(resp.modal_context);
+          $("#myModal .modal-dialog").addClass("modal-lg");
+          $("#myModal").modal("show");
+
+          $('#myModal').on('shown.bs.modal', function () {
+            $('#name').focus();
+          });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+          $('#errorMessage').removeClass('d-none');
+          if (jqXHR.status === 0) {
+            let errormessage = "Network error, please check your internet connection or server status."
+            console.log(errormessage);
+            $('#errorMessage').text(errormessage);
+          } else {
+            $('#errorMessage').text(errorThrown);
+          }
+        }
+      });
+    });
+  });
+
+  // save apk
+  $("#save").on('click', function (event) {
+    let jsonData = $("#ApkInfoForm").serializeJSON({checkboxUncheckedValue:"false"});
+    let message = $("#message");
+    if (!hasEmpty(jsonData)){
+      message.removeClass("d-none");
+      message.removeClass('text-success');
+      message.addClass('text-warning');
+      message.text("Required field is empty");
+    } else {
+      $.ajaxSetup({ headers: { "X-CSRFToken": "{{ csrf_token }}" } });
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "{% url 'apps.gwm:add_apk' %}",
+        data: JSON.stringify(jsonData),
+        beforeSend: function () {
+          message.addClass("d-none");
+          $("#save").attr("disabled", true);
+        },
+        success: function (resp) {
+          console.log(resp);
+          $("#save").attr("disabled", false);
+          message.removeClass("d-none");
+          if (resp.code == 1000) {
+            message.removeClass('text-warning');
+            message.addClass('text-success');
+            message.text("APK submitted. Awaiting admin approval.");
+          } else {
+            message.addClass('text-warning');
+            message.text(resp.message);
+          }
+        },
+        error: function (err) {
+          console.log(err);
+          $("#save").attr("disabled", false);
+        }
+      });
+    }
+  });
+
+  // change current ota check app info.
+  $("table").on("click", "#setLock", function () {
+    var row = this;
+    let apk_id = $(this).attr("data-id");
+    $.ajax({
+      type: "get",
+      url: "{% url 'apps.gwm:set_current_ota' %}?apk_id=" + apk_id,
+      success: function (resp) {
+        console.log(resp)
+        $('#statusMsg-'+apk_id).text(resp.message);
+        $(row).closest('tr').addClass('text-highligt');
+        setTimeout(function () {
+            window.location.reload();
+        }, 1000);
+      },
+      error: function (e) {
+        console.log(e);
+      }
+    });
+  });
+
+  //
+  $("#findApks").on('click', function(event) {
+    event.preventDefault();
+    clearSearchMessage();
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "{% url 'apps.gwm:find_apks' %}",
+      beforeSend: function() {
+        $("#action-message").html("");
+        enableSearchButton(false);
+      },
+      success: function(resp) {
+        $("#action-message").html("find apk count: " + resp.file_count);
+        setTimeout(function () {
+            window.location.reload();
+        }, 1200);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        handleError(jqXHR, textStatus, errorThrown);
+      }
+    });
+  });
+</script>
+{% endblock %}

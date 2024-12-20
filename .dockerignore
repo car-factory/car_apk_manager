@@ -1,0 +1,20 @@
+*.aes
+.cache/
+docs/
+.dockerignore
+*.enc
+.git/
+.gitignore
+# *.yaml
+# *.yml
+*.md
+*.toml
+site/
+.trivyignore
+.ssh
+.editorconfig
+LICENSE
+.github/
+.yamllint
+.prettierignore
+TODO.txt

@@ -1,0 +1,39 @@
+{% load gwm_extras %}
+{% for apk in items %}
+<tr>
+  <th scope="row" class="align-middle d-none d-md-table-cell">{{ forloop.counter }}</th>
+  <td class="align-middle py-3 w-25">
+    <a href="{{ apk.file_url }}" class="fw-semibold">
+      {{ apk.name}}
+      <i class="bi-link-45deg"></i>
+    </a>
+    <span class="badge text-bg-success">{{ apk.version|default:"N/a" }}</span>
+    {% if apk.file_size %}
+    <span class="badge text-bg-light text-body-tertiary">{{ apk.file_size }}</span>
+    {% endif %}
+    <br>
+    <span class="badge text-bg-light text-body-tertiary">MD5: {{ apk.file_md5 }}</span>
+  </td>
+  <td class="align-middle w-25 d-none d-md-table-cell">{{ apk.describe }}</td>
+  <td class="align-middle d-none d-md-table-cell">{{ apk.get_status_display }}</td>
+  <td class="align-middle w-25">{{ apk.comment }}</td>
+  <td class="align-middle">
+      <div class="form-check form-switch">
+        <a href="javascript:void(0)" id="setLock"  data-id="{{ apk.id }}">
+          <input class="form-check-input " type="checkbox" role="switch" id="check-box" {% if apk.locked %}checked{% endif %} {% if not user.is_authenticated %}disabled{% endif %}>
+        </a>
+      </div>
+    <span class="text-body-tertiary" id="statusMsg-{{ apk.id }}"></span>
+  </td>
+  <td class="align-middle w-25 d-none d-md-table-cell">{{ apk.modify_at|date:'Y-m-d H:i:s' }}</td>
+</tr>
+{% empty %}
+<tr>
+  <td class="py-4 text-center" colspan="8">
+    <h6 class="text-body-tertiary fw-lighter">
+      <i class="bi bi-star" style="font-size: 16px"></i>
+      No Data Yet.
+    </h6>
+  </td>
+</tr>
+{% endfor %}
