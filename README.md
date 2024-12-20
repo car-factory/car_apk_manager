@@ -41,6 +41,10 @@ $ docker run -d -it --name car_apk_manager \
     -v /path/to/apk:/opt/apk \
     --restart always \
     car-factory/car_apk_manager
+
+# 命令行创建后台管理员
+$ docker exec -it car_apk_manager \
+    sh -c ". /opt/car_apk_manager/.py3/bin/activate;python manage.py createsuperuser"
 ```
 
 ### Step1.1：验证服务端环境配置是否正确
