@@ -20,6 +20,7 @@ RUN apk update && \
         . .py3/bin/activate && \
         pip3 install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple -r requirements.txt && \
         mkdir -pv /var/log/car-web/ \
+            /opt/apk/ \
             ${PROJECT_ROOT}/statics/ \
             /etc/supervisor/conf.d/ \
             /etc/nginx/ssl && \
