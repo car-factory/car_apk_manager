@@ -38,7 +38,7 @@ $ docker run -d -it --name car_apk_manager \
     --network host \
     -e ENTRY_IP=$ENTRY_IP \
     -e DJANGO_ENV=product \
-    -v /path/to/apk:/opt/apk
+    -v /path/to/apk:/opt/apk \
     --restart always \
     car-factory/car_apk_manager
 ```
