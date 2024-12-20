@@ -75,12 +75,12 @@ $ docker exec -it car_apk_manager \
 
   3. 访问web服务(http://<ENTRY_IP>:80)，上传Apk文件。
      1. 使用服务本地存储作为apk存储媒介：
-        1.执行如上docker run命令时，需要将本地的apk存放目录挂载到docker容器；
-        2.点击"Find Local APP"按钮，可以一键导入本地所有app。
+        1. 执行如上docker run命令时，需要将本地的apk存放目录挂载到docker容器；
+        2. 点击"Find Local APP"按钮，可以一键导入本地所有app。
 
      2. 使用云端对象存储作为apk存储媒介：
-        1.首先将apk文件上传到云端存储服务
-        2.点击"Add New APP"按钮，将app信息录入系统中。
+        1. 首先将apk文件上传到云端存储服务
+        2. 点击"Add New APP"按钮，将app信息录入系统中。
 
   4. 首次上传完apk文件后，需要管理员登陆后台手动锁定一个车机系统更新的app，才可接下来的车机联网配置。因为车机接口限制问题，每次更新同时只允许一个app包升级/安装。
 
