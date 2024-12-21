@@ -87,6 +87,12 @@ $ docker exec -it car_apk_manager \
 
 ## How to Build
 
+**Pre-requisites**
+
+In order to run the build environment, you will need to have the following tools installed:
+
+* Docker - https://docs.docker.com/engine/install/
+
 ```sh
 $ docker build --no-cache -t car_apk_manager \
     --build-arg DJANGO_ENV=product .
@@ -113,6 +119,13 @@ $ docker build --no-cache -t car_apk_manager \
 2. 安波福主机和华阳主机的区别
 
 安波福不能直接装软件，但安装后软件能显示；华阳可以直接装软件，但默认桌面不显示图标，需要使用第三方桌面。
+
+## Contributing
+
+There are many ways to contribute to Car-Apk-Manager:
+
+* Submit [bug reports](https://github.com/car-factory/car_apk_manager/issues) and [feature requests](https://github.com/car-factory/car_apk_manager/issues)
+* Upvoting [popular feature requests](https://github.com/car-factory/car_apk_manager/issues?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22) to show your support
 
 ## Ref
 
