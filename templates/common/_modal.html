@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" id="modalDialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myModalLabel">Modal Title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="refresh()"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center">
+					<div class="spinner-grow spinner-grow-sm text-warning" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div id="message" class="text-wrap" style="width: 14rem;"></div>
+				<button type="button"
+								class="btn btn-secondary"
+								onclick="refresh()"
+								data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="button" class="btn btn-primary" id="save">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

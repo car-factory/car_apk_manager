@@ -1,0 +1,33 @@
+<form id="ApkInfoForm" onsubmit="return false">
+  <input type="text" id="id" name="id" value="{{ new_apk_id }}" hidden>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name*</label>
+    <input type="text" class="form-control" id="name" name="name" maxlength="20" placeholder="apk name here" required>
+  </div>
+  <div class="mb-3">
+    <label for="version" class="form-label">Version*</label>
+    <input type="text" class="form-control" id="version" name="version" maxlength="20" placeholder="describe here" required>
+  </div>
+  <div class="mb-3">
+    <label for="describe" class="form-label">Describe*</label>
+    <input type="text" class="form-control" id="describe" name="describe" maxlength="60" placeholder="describe here" required>
+  </div>
+  <div class="mb-3">
+    <label for="url" class="form-label">APP Download url*</label>
+    <input type="text" class="form-control" id="url" name="file_url" maxlength="300" placeholder="apk download url" required>
+  </div>
+  <div class="mb-3">
+    <label for="md5" class="form-label">
+      APP md5*
+      <a href="https://tool.lu/filehash/" target="_blank" class="link-success prompt">
+        <i class="bi bi-question-circle-fill"></i>
+      </a>
+    </label>
+    <input type="text" class="form-control" id="md5" name="file_md5" maxlength="120" placeholder="apk md5 here" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="comment" class="form-label">Comment</label>
+    <textarea class="form-control" id="comment" name="comment" rows="2" maxlength="150" placeholder="comment here, like Compatible with the Harvard H6/Dargo model."></textarea>
+  </div>
+</form>

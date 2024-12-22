@@ -1,0 +1,4 @@
+django>=4.2,<4.3
+gunicorn
+pytz==2022.2.1
+tzdata==2022.2

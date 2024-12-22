@@ -1,0 +1,53 @@
+{% load gwm_extras %}
+{% current_query_string as query_string %}
+{% if items.has_next or items.has_previous %}
+<nav aria-label="Page navigation" id="navigation">
+    <ul class="pagination">
+        {% if items.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1{{ query_string|safe }}" aria-label="Previous">
+                <span aria-hidden="true">
+                    <i class="bi-chevron-bar-left"></i>
+                </span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ items.previous_page_number }}{{ query_string|safe }}" aria-label="Previous">
+                <span aria-hidden="true">
+                    <i class="bi-caret-left"></i>
+                </span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for num in items.paginator.page_range %}
+        {% if items.number == num %}
+        <li class="page-item active">
+            <a class="page-link" href="javascript:void(0)">{{ num }}</a>
+        </li>
+        {% elif num > items.number|add:'-4' and num < items.number|add:'4' %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ num }}{{ query_string|safe }}">{{ num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if items.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ items.next_page_number }}{{ query_string|safe }}" aria-label="Next">
+                <span aria-hidden="true">
+                    <i class="bi-caret-right"></i>
+                </span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.num_pages }}{{ query_string|safe }}" aria-label="Next">
+                <span aria-hidden="true">
+                    <i class="bi-chevron-bar-right"></i>
+                </span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
