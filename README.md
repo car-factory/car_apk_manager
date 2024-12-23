@@ -70,7 +70,7 @@ $ docker exec -it car_apk_manager \
 
 ### Step2：访问web服务(http://<ENTRY_IP>:80)，上传Apk文件
 
-  1. 使用服务本地存储作为apk存储媒介：
+  1. 使用本地存储作为apk存储媒介：
      1. 执行如上docker run命令时，通过`-v`参数将本地的apk存放目录挂载到docker容器；
      2. 点击"Find Local APP"按钮，可以一键导入本地所有app信息。
 
