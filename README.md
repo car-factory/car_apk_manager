@@ -33,7 +33,7 @@ $ docker run -d -it --name car_apk_manager \
     -e DJANGO_ENV=product \
     -v /path/to/apk:/opt/apk \
     --restart always \
-    car-factory/car_apk_manager
+    <COOLHUB>/car_apk_manager
 
 # 命令行创建后台管理员
 $ docker exec -it car_apk_manager \
