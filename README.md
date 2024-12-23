@@ -15,6 +15,8 @@
 
 ## How to Use
 
+> 使用此方案可能有一定的技术要求：1). 会使用[docker](https://www.runoob.com/docker/docker-tutorial.html)。2). 有一台可以安装docker容器的闲置笔记本或者临时购买一台云主机(操作系统最好是Linux)
+
 ### Step1：部署服务端
 
 ```sh
