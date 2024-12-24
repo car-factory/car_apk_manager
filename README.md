@@ -1,4 +1,4 @@
-# Open car APK manager
+# Open Car Apk Manager
 
 这是一个集成Local DNS和web下载服务的工具集，提供给车友爱好者自行升级车机app的私有平台。
 
