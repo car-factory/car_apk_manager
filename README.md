@@ -1,5 +1,9 @@
 # Open car APK manager
 
+这是一个集成Local DNS和web下载服务的工具集，提供给车友爱好者自行升级车机app的私有平台。
+
+This is a toolkit that integrates Local DNS and web download services, providing a private platform for car enthusiasts to upgrade car machine apps on their own.
+
 ![Short](./screenshot.png)
 
 ## Support car models
@@ -35,7 +39,7 @@ $ docker run -d -it --name car_apk_manager \
     -e DJANGO_ENV=product \
     -v /path/to/apk:/opt/apk \
     --restart always \
-    <COOLHUB>/car_apk_manager
+    carfactory/car_apk_manager
 
 # 命令行创建后台管理员
 $ docker exec -it car_apk_manager \
