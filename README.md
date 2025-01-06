@@ -100,6 +100,8 @@ In order to run the build environment, you will need to have the following tools
 * Docker - https://docs.docker.com/engine/install/
 
 ```sh
+$ git clone https://github.com/car-factory/car_apk_manager.git car_apk_manager
+$ cd car_apk_manager
 $ docker build --no-cache -t car_apk_manager \
     --build-arg DJANGO_ENV=product .
 ```
